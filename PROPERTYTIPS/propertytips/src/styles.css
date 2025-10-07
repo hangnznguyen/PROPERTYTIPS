@@ -1,0 +1,88 @@
+/* General page setup */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #E6F2FA; /* light blue background */
+}
+
+/* Sidebar styles */
+.MuiList-root {
+  padding: 0;
+}
+
+.MuiListItem-root {
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.MuiListItem-root:hover {
+  background-color: #D0E8FA; /* light hover effect */
+  cursor: pointer;
+}
+
+.MuiListItem-root.Mui-selected {
+  background-color: #FFCDD2; /* red highlight for active item */
+  color: #B71C1C;
+}
+
+/* Top Banner */
+.MuiBox-root > h6 {
+  color: #0D47A1;
+}
+
+/* Content area */
+.MuiBox-root {
+  background-color: #ffffff; /* white content area */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Typography adjustments */
+h5, h6 {
+  color: #1E88E5;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+/* Scrollbar for sidebar and content */
+.MuiBox-root {
+  scrollbar-width: thin;
+  scrollbar-color: #B0BEC5 #E6F2FA;
+}
+
+.MuiBox-root::-webkit-scrollbar {
+  width: 8px;
+}
+
+.MuiBox-root::-webkit-scrollbar-track {
+  background: #E6F2FA;
+  border-radius: 4px;
+}
+
+.MuiBox-root::-webkit-scrollbar-thumb {
+  background-color: #B0BEC5;
+  border-radius: 4px;
+}
+
+/* Optional: clickable icon style for Tenant Guide collapse */
+.MuiListItem-root svg {
+  color: #1976D2;
+}
