@@ -9,17 +9,12 @@ import {
   Box,
   Button,
   Modal,
-  Card,
-  CardMedia,
-  CardContent,
-  Link,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PeopleIcon from "@mui/icons-material/People";
 import DescriptionIcon from "@mui/icons-material/Description";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { keyframes } from "@mui/system";
 
@@ -27,11 +22,16 @@ import exampleVideo from "../../assets/video.mp4";
 import dirtyShower from "../../assets/dirtyshower.mp4";
 import dirtyToilet from "../../assets/dirtytoilet.mp4";
 import rangehood from "../../assets/rangehood.mp4";
+
 import cleaningPhoto from "../../assets/30.jpg";
 import mrMusclePhoto from "../../assets/muscle.jpg";
 import gifPhoto from "../../assets/gif.jpg";
-import tigerPhoto from "../../assets/Tiger.jpg";
-import squeezePhoto from "../../assets/Squeeze.jpg";
+import tigerPhoto from "../../assets/Squeeze.jpg";
+
+import meterPhoto from "../../assets/meter.jpg";
+import mainSwitchPhoto from "../../assets/mainswitch.jpg";
+import behaviorPhoto from "../../assets/behavior.jpg";
+import packagePhoto from "../../assets/package.jpg";
 
 // Fade-in animation
 const fadeIn = keyframes`
@@ -66,10 +66,10 @@ const steps = [
       "Actively listen to their needs and explain processes clearly.",
       "Remind tenants to connect utilities (reconnection costs are their responsibility).",
       "First inspection scheduled one month after move-in.",
+      "Sharing the example video of tenants who keep the place clean and tidy.",
       "Remind tenants about rent, water, and neighborly responsibilities.",
       "Educate tenants about building rules such as noise, rubbish, alcohol restrictions, smoke alarms (never tamper, cover, or disconnect). Any non-compliance may result in fines or service charges.",
-      "Sharing the example video of tenants who keep the place clean and tidy.",
-      "Link the current tenants with new tenants who come from the same countries. They can exchange life experiences in New Zealand and make friends.",
+      "Show tenants where to locate the water meter and main power switch as soon as they move in.",
       "Sharing the example videos of tenants who do not keep the place nice and tidy. Some common issues include greasy rangehood, dirty shower base, and dirty toilet.",
       "Sharing the cleaning products tenants should have in the house.",
     ],
@@ -96,44 +96,36 @@ const NewTenantOnboarding = () => {
   const [mrMuscleCardOpen, setMrMuscleCardOpen] = useState(false);
   const [gifCardOpen, setGifCardOpen] = useState(false);
   const [tigerSqueezeCardOpen, setTigerSqueezeCardOpen] = useState(false);
+  const [meterOpen, setMeterOpen] = useState(false);
+  const [mainSwitchOpen, setMainSwitchOpen] = useState(false);
+  const [behaviorOpen, setBehaviorOpen] = useState(false);
+  const [packageOpen, setPackageOpen] = useState(false);
 
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
-
   const handleDirtyVideoOpen = (video) => setDirtyVideoOpen(video);
   const handleDirtyVideoClose = () => setDirtyVideoOpen(null);
-
   const handleCleaningCardOpen = () => setCleaningCardOpen(true);
   const handleCleaningCardClose = () => setCleaningCardOpen(false);
-
   const handleMrMuscleCardOpen = () => setMrMuscleCardOpen(true);
   const handleMrMuscleCardClose = () => setMrMuscleCardOpen(false);
-
   const handleGifCardOpen = () => setGifCardOpen(true);
   const handleGifCardClose = () => setGifCardOpen(false);
-
   const handleTigerSqueezeCardOpen = () => setTigerSqueezeCardOpen(true);
   const handleTigerSqueezeCardClose = () => setTigerSqueezeCardOpen(false);
 
   return (
     <Box sx={{ backgroundColor: "#f8f9fa", minHeight: "100vh", py: 8 }}>
       <Container maxWidth="lg">
-        {/* Page Title */}
         <Typography
           variant="h3"
           align="center"
           gutterBottom
-          sx={{
-            color: "#007acc",
-            fontWeight: "bold",
-            fontFamily: "'Roboto', sans-serif",
-            mb: 5,
-          }}
+          sx={{ color: "#007acc", fontWeight: "bold", fontFamily: "'Roboto', sans-serif", mb: 5 }}
         >
           New Tenant Onboarding
         </Typography>
 
-        {/* Steps */}
         {steps.map((step, index) => (
           <Box
             key={index}
@@ -148,7 +140,6 @@ const NewTenantOnboarding = () => {
               bgcolor: "#ffffff",
             }}
           >
-            {/* Photo */}
             <Box
               component="img"
               src={step.image}
@@ -165,7 +156,6 @@ const NewTenantOnboarding = () => {
               }}
             />
 
-            {/* Accordion */}
             <Accordion sx={{ fontSize: "1.4rem" }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ fontSize: "2rem" }} />}
@@ -183,42 +173,59 @@ const NewTenantOnboarding = () => {
                 </Box>
               </AccordionSummary>
 
-              <AccordionDetails
-                sx={{
-                  color: "#000",
-                  backgroundColor: "#fff",
-                  padding: "1rem",
-                  lineHeight: 2.2,
-                  fontSize: "1.4rem",
-                }}
-              >
+              <AccordionDetails sx={{ color: "#000", backgroundColor: "#fff", padding: "1rem", lineHeight: 2.2, fontSize: "1.4rem" }}>
                 <Box component="div" sx={{ "& ul": { listStyle: "none", paddingLeft: 0 } }}>
                   <ul>
-                    {step.content.map((line, i) =>
-                      Array.isArray(line) ? (
-                        <Box component="ul" sx={{ pl: 4 }} key={i}>
-                          {line.map((subline, subIndex) => (
-                            <li key={subIndex} style={{ marginBottom: "1rem" }}>
-                              <FiberManualRecordIcon sx={{ color: "#ff9800", fontSize: "1rem" }} />
-                              <Typography sx={{ display: "inline" }}>{subline}</Typography>
-                            </li>
-                          ))}
-                        </Box>
-                      ) : (
-                        <li key={i} style={{ alignItems: "center", display: "flex", gap: "8px", marginBottom: "1rem" }}>
-                          <CheckCircleIcon sx={{ color: "#007acc", fontSize: "1.3rem" }} />
-                          <Typography sx={{ display: "inline" }}>{line}</Typography>
+                    {step.content.map((line, i) => (
+                      <React.Fragment key={i}>
+                        <li style={{ display: "flex", alignItems: "flex-start", gap: "8px", marginBottom: "1rem" }}>
+                          <CheckCircleIcon sx={{ color: "#007acc", fontSize: "1.3rem", flexShrink: 0, mt: "3px" }} />
 
-                          {/* Watch Video button */}
-                          {line.includes("Sharing the example video of tenants who keep the place clean and tidy.") && (
+                          <Typography sx={{ display: "block", flex: 1, lineHeight: 1.6, wordBreak: "break-word" }}>
+                            {line}
+                          </Typography>
+
+                          {line.includes("First inspection scheduled one month after move-in.") && (
                             <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={handleVideoOpen} size="small">
-                              Watch the Video
+                              Watch Example Video
                             </Button>
                           )}
 
-                          {/* Product Buttons */}
-                          {line.includes("Sharing the cleaning products tenants should have in the house") && (
+                          {line.includes("Show tenants where to locate the water meter") && (
                             <>
+                              <Button variant="outlined" size="small" onClick={() => setMeterOpen(true)}>
+                                Water Meter Location
+                              </Button>
+                              <Button variant="outlined" size="small" onClick={() => setMainSwitchOpen(true)}>
+                                Main Switch Location
+                              </Button>
+                            </>
+                          )}
+
+                          {line.includes("Educate tenants about building rules") && (
+                            <Box display="flex" gap={2} mt={1} flexWrap="wrap">
+                              <Button variant="outlined" href="/Breachnoise.pdf" target="_blank" rel="noopener" size="small">
+                                Breach Noise PDF
+                              </Button>
+                              <Box
+                                component="img"
+                                src={behaviorPhoto}
+                                alt="Behavior"
+                                sx={{ width: 100, cursor: "pointer", borderRadius: 2 }}
+                                onClick={() => setBehaviorOpen(true)}
+                              />
+                              <Box
+                                component="img"
+                                src={packagePhoto}
+                                alt="Package"
+                                sx={{ width: 100, cursor: "pointer", borderRadius: 2 }}
+                                onClick={() => setPackageOpen(true)}
+                              />
+                            </Box>
+                          )}
+
+                          {line.includes("Sharing the cleaning products tenants should have in the house") && (
+                            <Box display="flex" gap={2} mt={1} flexWrap="wrap">
                               <Button variant="outlined" size="small" onClick={handleCleaningCardOpen}>
                                 30 Seconds
                               </Button>
@@ -231,28 +238,57 @@ const NewTenantOnboarding = () => {
                               <Button variant="outlined" size="small" onClick={handleTigerSqueezeCardOpen}>
                                 Tiger's Paw
                               </Button>
-                            </>
+                            </Box>
                           )}
                         </li>
-                      )
-                    )}
 
-                    {step.hasDirtyVideos && (
-                      <li style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "1rem" }}>
-                        <Typography sx={{ fontWeight: "bold", fontSize: "1.6rem" }}>
-                          Watch examples of common cleaning issues:
-                        </Typography>
-                        <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("rangehood")}>
-                          Greasy Rangehood
-                        </Button>
-                        <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("shower")}>
-                          Dirty Shower Base
-                        </Button>
-                        <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("toilet")}>
-                          Dirty Toilet
-                        </Button>
-                      </li>
-                    )}
+                        {i === step.content.length - 1 && step.hasDirtyVideos && (
+                          <li style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "1rem" }}>
+                            <Typography sx={{ fontWeight: "bold", fontSize: "1.6rem" }}>
+                              Watch examples of common cleaning issues:
+                            </Typography>
+
+                            <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("rangehood")}>
+                              Greasy Rangehood
+                            </Button>
+
+                            <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("shower")}>
+                              Dirty Shower Base
+                            </Button>
+
+                            <Button variant="outlined" startIcon={<PlayCircleIcon />} onClick={() => handleDirtyVideoOpen("toilet")}>
+                              Dirty Toilet
+                            </Button>
+
+                            <Typography sx={{ fontWeight: "bold", fontSize: "1.6rem", mt: 3 }}>
+                              Example: Entry Inspection Report
+                            </Typography>
+
+                            <Button
+                              variant="outlined"
+                              href="/SampleEntryinspection.pdf"
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              View Sample Entry Inspection Report
+                            </Button>
+
+                            <Typography sx={{ fontWeight: "bold", fontSize: "1.6rem", mt: 3 }}>
+                              Example: Smoke Alarm Service Report
+                            </Typography>
+
+                            <Button
+                              variant="outlined"
+                              href="/Smokealarm.pdf"
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              View Smoke Alarm Breach invoice
+                            </Button>
+                          </li>
+                        )}
+                      </React.Fragment>
+                    ))}
                   </ul>
                 </Box>
               </AccordionDetails>
@@ -260,121 +296,94 @@ const NewTenantOnboarding = () => {
           </Box>
         ))}
 
-        {/* All Modals (Videos & Products) */}        {/* Video Modal */}
+        {/* Example Video */}
         <Modal open={videoOpen} onClose={handleVideoClose}>
-          <Box sx={{ width: "100vw", height: "100vh", bgcolor: "black", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <video controls autoPlay style={{ maxWidth: "100%", maxHeight: "100%" }}>
-              <source src={exampleVideo} type="video/mp4" />
-              Your browser does not support HTML5 video.
-            </video>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            <video src={exampleVideo} controls style={{ width: '100%', height: 'auto' }} />
           </Box>
         </Modal>
 
-        {/* Dirty Video Modal */}
-        <Modal open={!!dirtyVideoOpen} onClose={handleDirtyVideoClose}>
-          <Box sx={{ width: "100vw", height: "100vh", bgcolor: "black", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <video controls autoPlay style={{ maxWidth: "100%", maxHeight: "100%" }}>
-              <source
-                src={
-                  dirtyVideoOpen === "shower"
-                    ? dirtyShower
-                    : dirtyVideoOpen === "toilet"
-                    ? dirtyToilet
-                    : rangehood
-                }
-                type="video/mp4"
-              />
-              Your browser does not support HTML5 video.
-            </video>
+        {/* Dirty Videos */}
+        <Modal open={dirtyVideoOpen !== null} onClose={handleDirtyVideoClose}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            {dirtyVideoOpen === "rangehood" && <video src={rangehood} controls style={{ width: '100%', height: 'auto' }} />}
+            {dirtyVideoOpen === "shower" && <video src={dirtyShower} controls style={{ width: '100%', height: 'auto' }} />}
+            {dirtyVideoOpen === "toilet" && <video src={dirtyToilet} controls style={{ width: '100%', height: 'auto' }} />}
           </Box>
         </Modal>
 
-        {/* 30 Seconds Modal */}
+        {/* Cleaning Product Modals */}
         <Modal open={cleaningCardOpen} onClose={handleCleaningCardClose}>
-          <Box sx={{ p: 4, bgcolor: "white", maxWidth: 800, margin: "auto", mt: 10, borderRadius: 2 }}>
-            <Card sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-              <CardMedia component="img" sx={{ width: { xs: "100%", md: 300 }, objectFit: "cover" }} image={cleaningPhoto} alt="30 Seconds Mould Remover" />
-              <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  30 Seconds Mould & Mildew Remover
-                </Typography>
-                <Typography variant="body1" gutterBottom sx={{ fontSize: "1.2rem" }}>
-                  Remove mould from ceiling, shower base, wall.
-                </Typography>
-                <Link href="https://www.youtube.com/watch?v=aaWirIDGr_U" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video
-                </Link>
-              </CardContent>
-            </Card>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 3, maxWidth: 400, maxHeight: '90%', overflowY: 'auto', borderRadius: 2 }}>
+            <img src={cleaningPhoto} alt="30 Seconds" style={{ width: '100%', height: 'auto', borderRadius: 4 }} />
+            <Typography sx={{ mt: 2, fontWeight: 'bold', fontSize: '1.2rem' }}>30 Seconds</Typography>
+            <Typography sx={{ mt: 1 }}>Description: A powerful cleaner used for removing outdoor grime, mold, and mildew from surfaces.</Typography>
+            <Typography sx={{ mt: 1 }}>Suggested Usage: Ideal for showers, bathrooms, and outdoor surfaces.</Typography>
+            <Button variant="outlined" href="https://www.youtube.com/watch?v=aaWirIDGr_U" target="_blank" sx={{ mt: 2 }}>
+              Watch Video
+            </Button>
           </Box>
         </Modal>
 
-        {/* Mr Muscle Modal */}
         <Modal open={mrMuscleCardOpen} onClose={handleMrMuscleCardClose}>
-          <Box sx={{ p: 4, bgcolor: "white", maxWidth: 800, margin: "auto", mt: 10, borderRadius: 2 }}>
-            <Card sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-              <CardMedia component="img" sx={{ width: { xs: "100%", md: 300 }, objectFit: "cover" }} image={mrMusclePhoto} alt="Mr Muscle Cleaning Product" />
-              <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Mr Muscle Cleaning Product
-                </Typography>
-                <Typography variant="body1" gutterBottom sx={{ fontSize: "1.2rem" }}>
-                  Removes grease in oven, stove, and rangehood.
-                </Typography>
-                <Link href="https://www.youtube.com/shorts/-2Y-Z1puIy8" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video 1
-                </Link>
-                <br />
-                <Link href="https://www.youtube.com/watch?v=DGDa_2pCDTc" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video 2
-                </Link>
-                <br />
-                <Link href="https://www.youtube.com/watch?v=tfAUvfEYkqY" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video 3
-                </Link>
-              </CardContent>
-            </Card>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 3, maxWidth: 400, maxHeight: '90%', overflowY: 'auto', borderRadius: 2 }}>
+            <img src={mrMusclePhoto} alt="Mr Muscle" style={{ width: '100%', height: 'auto', borderRadius: 4 }} />
+            <Typography sx={{ mt: 2, fontWeight: 'bold', fontSize: '1.2rem' }}>Mr Muscle</Typography>
+            <Typography sx={{ mt: 1 }}>Description: A well-known bathroom and kitchen cleaner designed to dissolve grease, soap scum, and dirt.</Typography>
+            <Typography sx={{ mt: 1 }}>Suggested Usage: Use for tiles, sinks, rangehoods, and stainless steel surfaces.</Typography>
+            <Button variant="outlined" href="https://www.tiktok.com/@outgrownourhome/video/7350027433329823008?lang=en" target="_blank" sx={{ mt: 2 }}>
+              Watch Video
+            </Button>
           </Box>
         </Modal>
 
-        {/* Gif Modal */}
         <Modal open={gifCardOpen} onClose={handleGifCardClose}>
-          <Box sx={{ p: 4, bgcolor: "white", maxWidth: 800, margin: "auto", mt: 10, borderRadius: 2 }}>
-            <Card sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-              <CardMedia component="img" sx={{ width: { xs: "100%", md: 300 }, objectFit: "cover" }} image={gifPhoto} alt="Gif Cleaning Product" />
-              <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Gif Cleaning Product
-                </Typography>
-                <Typography variant="body1" gutterBottom sx={{ fontSize: "1.2rem" }}>
-                  Remove black marks on wall, stains on cabinets, steel surfaces, and bathroom glass.
-                </Typography>
-                <Link href="https://www.tiktok.com/@jason.cleans/video/7431896275462720784" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video
-                </Link>
-              </CardContent>
-            </Card>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 3, maxWidth: 400, maxHeight: '90%', overflowY: 'auto', borderRadius: 2 }}>
+            <img src={gifPhoto} alt="Gif" style={{ width: '100%', height: 'auto', borderRadius: 4 }} />
+            <Typography sx={{ mt: 2, fontWeight: 'bold', fontSize: '1.2rem' }}>Gif</Typography>
+            <Typography sx={{ mt: 1 }}>Description: Cream cleanser effective on stubborn stains, perfect for sinks, stoves, and counters.</Typography>
+            <Typography sx={{ mt: 1 }}>Suggested Usage: Apply a small amount on a sponge and scrub gently for shiny results.</Typography>
+            <Button variant="outlined" href="https://www.youtube.com/watch?v=70MP0GU06OM" target="_blank" sx={{ mt: 2 }}>
+              Watch Video
+            </Button>
           </Box>
         </Modal>
 
-        {/* Tiger's Paw and Squeeze Modal */}
         <Modal open={tigerSqueezeCardOpen} onClose={handleTigerSqueezeCardClose}>
-          <Box sx={{ p: 4, bgcolor: "white", maxWidth: 900, margin: "auto", mt: 10, borderRadius: 2 }}>
-            <Card sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-              <CardMedia component="img" sx={{ width: { xs: "100%", md: 300 }, objectFit: "cover" }} image={tigerPhoto} alt="Tiger's Paw ShowerGlass" />
-              <CardMedia component="img" sx={{ width: { xs: "100%", md: 300 }, objectFit: "cover" }} image={squeezePhoto} alt="Squeeze Cleaning Glass" />
-              <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Tiger's Paw ShowerGlass and Squeeze
-                </Typography>
-                <Typography variant="body1" gutterBottom sx={{ fontSize: "1.2rem" }}>
-                  Remove calcium deposits on shower glass.
-                </Typography>
-                <Link href="https://www.youtube.com/watch?v=lfqVLJ_J6jA" target="_blank" rel="noopener" sx={{ fontSize: "1.1rem" }}>
-                  Watch Video
-                </Link>
-              </CardContent>
-            </Card>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 3, maxWidth: 400, maxHeight: '90%', overflowY: 'auto', borderRadius: 2 }}>
+            <img src={tigerPhoto} alt="Tiger's Paw" style={{ width: '100%', height: 'auto', borderRadius: 4 }} />
+            <Typography sx={{ mt: 2, fontWeight: 'bold', fontSize: '1.2rem' }}>Tiger's Paw</Typography>
+            <Typography sx={{ mt: 1 }}>Description: A concentrated cleaning gel ideal for tough grease and grime.</Typography>
+            <Typography sx={{ mt: 1 }}>Suggested Usage: Apply directly to dirty spots; rinse with warm water.</Typography>
+            <Button variant="outlined" href="https://www.youtube.com/watch?v=xmaJ7OcusPY" target="_blank" sx={{ mt: 2 }}>
+              Watch Video
+            </Button>
+          </Box>
+        </Modal>
+
+        {/* Meter & Main Switch */}
+        <Modal open={meterOpen} onClose={() => setMeterOpen(false)}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            <img src={meterPhoto} alt="Water Meter" style={{ width: '100%', height: 'auto' }} />
+          </Box>
+        </Modal>
+
+        <Modal open={mainSwitchOpen} onClose={() => setMainSwitchOpen(false)}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            <img src={mainSwitchPhoto} alt="Main Switch" style={{ width: '100%', height: 'auto' }} />
+          </Box>
+        </Modal>
+
+        {/* Behavior & Package Photo Modals */}
+        <Modal open={behaviorOpen} onClose={() => setBehaviorOpen(false)}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            <img src={behaviorPhoto} alt="Behavior" style={{ width: '100%', height: 'auto' }} />
+          </Box>
+        </Modal>
+
+        <Modal open={packageOpen} onClose={() => setPackageOpen(false)}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 2, maxWidth: '90%', maxHeight: '90%' }}>
+            <img src={packagePhoto} alt="Package" style={{ width: '100%', height: 'auto' }} />
           </Box>
         </Modal>
       </Container>
@@ -383,4 +392,3 @@ const NewTenantOnboarding = () => {
 };
 
 export default NewTenantOnboarding;
-

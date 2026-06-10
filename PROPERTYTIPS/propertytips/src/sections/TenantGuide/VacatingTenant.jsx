@@ -22,6 +22,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import goodbyeImage from "../../assets/goodbye.jpg"; // your image path
+import moveOutPDF from "../../assets/moveout email.pdf"; // PDF file path
 
 const VacatingTenant = () => {
   const [showProducts, setShowProducts] = useState(false);
@@ -32,7 +33,7 @@ const VacatingTenant = () => {
     "Recommend trusted cleaners (free quotes)",
     "Final rent/utility statements provided",
     "Collect Fibre/ICP numbers if applicable",
-    "Provide tenants with cleaning product list if they prefer DIY cleaning", // ✅ new sentence
+    "Provide tenants with cleaning product list if they prefer DIY cleaning",
   ];
 
   const cleaningProducts = [
@@ -89,8 +90,8 @@ const VacatingTenant = () => {
                 ))}
               </List>
 
-              {/* ✅ Button only for cleaning products */}
-              <Box sx={{ mt: 2 }}>
+              {/* Buttons for cleaning products and PDF */}
+              <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
                 <Button
                   variant="outlined"
                   size="small"
@@ -99,19 +100,30 @@ const VacatingTenant = () => {
                   {showProducts ? "Hide Products" : "Show Products"}
                 </Button>
 
-                <Collapse in={showProducts}>
-                  <List dense sx={{ mt: 1 }}>
-                    {cleaningProducts.map((product, i) => (
-                      <ListItem key={i} sx={{ pl: 2 }}>
-                        <ListItemIcon>
-                          <CheckCircleIcon sx={{ color: "green" }} />
-                        </ListItemIcon>
-                        <ListItemText primary={product} />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="secondary"
+                  href={moveOutPDF}
+                  target="_blank"
+                  download
+                >
+                  Vacate Email
+                </Button>
               </Box>
+
+              <Collapse in={showProducts}>
+                <List dense sx={{ mt: 1 }}>
+                  {cleaningProducts.map((product, i) => (
+                    <ListItem key={i} sx={{ pl: 2 }}>
+                      <ListItemIcon>
+                        <CheckCircleIcon sx={{ color: "green" }} />
+                      </ListItemIcon>
+                      <ListItemText primary={product} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
             </Paper>
           </TimelineContent>
         </TimelineItem>

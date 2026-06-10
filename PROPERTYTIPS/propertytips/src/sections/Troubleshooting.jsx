@@ -21,6 +21,7 @@ import PestControlIcon from "@mui/icons-material/PestControl";
 import PowerIcon from "@mui/icons-material/Power";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LockIcon from "@mui/icons-material/Lock"; // ✅ Added LockIcon
 
 const Troubleshooting = () => {
   const sections = [
@@ -42,7 +43,7 @@ const Troubleshooting = () => {
     {
       title: "No Water",
       icon: <WaterIcon />,
-      color: "#90caf9", // lighter blue color
+      color: "#90caf9",
       content: "Check your water meter. Ask neighbors if they are affected. Call Watercare if needed.",
     },
     {
@@ -172,6 +173,36 @@ const Troubleshooting = () => {
         </>
       ),
     },
+    {
+      title: "Rangehood is Not Working",
+      icon: <KitchenIcon />,
+      color: "#ffa726",
+      content: (
+        <>
+          • Check the power on the main switch.<br /><br />
+          • Make sure the rangehood switch is ON.<br /><br />
+          • Pull the rangehood out to clean or inspect.<br /><br />
+          <video controls style={{ width: "100%", maxWidth: "600px" }}>
+            <source src="/RangehoodGore.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </>
+      ),
+    },
+    {
+      title: "How to Insert the Card to the Door",
+      icon: <LockIcon />,
+      color: "#90caf9",
+      content: (
+        <>
+          • Follow instructions on the door card slot.<br /><br />
+          <video controls style={{ width: "100%", maxWidth: "600px" }}>
+            <source src="/Insertcard.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </>
+      ),
+    },
   ];
 
   return (
@@ -187,7 +218,7 @@ const Troubleshooting = () => {
       {/* Banner */}
       <Box
         sx={{
-          background: "linear-gradient(135deg, #90caf9 0%, #64b5f6 100%)", // Updated lighter blue
+          background: "linear-gradient(135deg, #90caf9 0%, #64b5f6 100%)",
           p: 6,
           textAlign: "center",
           borderRadius: 4,
